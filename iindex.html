@@ -1,0 +1,1107 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lajawab Beswaad Restaurant</title>
+    <style>
+        :root {
+            --maroon: #8B0000;
+            --deep-maroon: #5C0000;
+            --accent: #A52A2A;
+            --cream: #F5F0E6;
+            --white: #FFFFFF;
+            --text: #3A2F2F;
+            --light-text: #6B5D5D;
+            --shadow: 0 15px 35px rgba(139, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: var(--cream);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--maroon);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--maroon);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.6rem;
+            color: var(--maroon);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -6px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.75rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            background-image: url('https://picsum.photos/id/1015/1920/1080');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(rgba(139, 0, 0, 0.65), rgba(139, 0, 0, 0.45));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            background: var(--maroon);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: var(--deep-maroon);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.3);
+        }
+
+        /* Menu Section */
+        .section {
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--maroon);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--light-text);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(139, 0, 0, 0.2);
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-header h3 {
+            font-size: 1.35rem;
+            color: var(--maroon);
+        }
+
+        .badge {
+            background: var(--accent);
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .description {
+            color: var(--light-text);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .size-toggle {
+            display: flex;
+            background: #f8f1e9;
+            border-radius: 50px;
+            padding: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .size-btn {
+            flex: 1;
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .size-btn.active {
+            background: var(--maroon);
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+        }
+
+        .price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--maroon);
+            margin-bottom: 1rem;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .qty-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--maroon);
+            background: white;
+            color: var(--maroon);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .qty-btn:hover {
+            background: var(--maroon);
+            color: white;
+        }
+
+        .qty-display {
+            font-size: 1.3rem;
+            font-weight: 600;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--maroon);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-btn:hover {
+            background: var(--deep-maroon);
+        }
+
+        /* Cart Panel */
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 420px;
+            height: 100vh;
+            background: white;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+            transition: right 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-panel.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 1.5rem;
+            background: var(--maroon);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .cart-total {
+            padding: 1.5rem;
+            background: #f8f1e9;
+            border-top: 2px solid var(--maroon);
+        }
+
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .grand-total {
+            font-size: 1.4rem;
+            color: var(--maroon);
+        }
+
+        /* Checkout Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 480px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            background: var(--maroon);
+            color: white;
+            text-align: center;
+        }
+
+        .form-group {
+            padding: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-family: inherit;
+            margin-bottom: 1rem;
+        }
+
+        .order-type {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .radio-label {
+            flex: 1;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .radio-label.active {
+            border-color: var(--maroon);
+            background: #fff0e6;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--maroon);
+            color: white;
+            padding: 16px 28px;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 4000;
+            animation: toastPop 0.4s ease;
+        }
+
+        /* Specialties */
+        .specialties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+
+        .spec-card {
+            background: white;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .spec-card:hover {
+            transform: scale(1.05);
+        }
+
+        .spec-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-phone a {
+            color: var(--maroon);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .contact-phone a:hover {
+            color: var(--deep-maroon);
+            text-decoration: underline;
+        }
+
+        .map-placeholder {
+            height: 300px;
+            background: #ddd;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #666;
+            background-image: url('https://i.ibb.co/0jZ5K0f/map-placeholder.jpg');
+            background-size: cover;
+            position: relative;
+        }
+
+        .map-placeholder::after {
+            content: '📍 Saugor, Madhya Pradesh';
+            position: absolute;
+            bottom: 20px;
+            background: rgba(255,255,255,0.9);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: #2b2b2b;
+            color: #ddd;
+            text-align: center;
+            padding: 3rem 5%;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes toastPop {
+            0% { transform: translateX(-50%) scale(0.6); opacity: 0; }
+            100% { transform: translateX(-50%) scale(1); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            .cart-panel {
+                width: 100%;
+                right: -100%;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">Lajawab Beswaad</div>
+        <ul class="nav-links">
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#specialties">Our Specialties</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div onclick="toggleCart()" class="cart-icon">🛒
+            <span id="cart-count" class="cart-count">0</span>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>Lajawab Beswaad Restaurant</h1>
+            <p>Where every bite feels like home 🍲✨</p>
+            <a href="#menu" class="btn">Explore Menu</a>
+        </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <section class="section" id="menu">
+        <div class="section-header">
+            <h2>Our Signature Menu</h2>
+            <p>Handcrafted with love using the freshest ingredients</p>
+        </div>
+
+        <div class="menu-grid" id="menu-grid">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- SPECIALTIES -->
+    <section class="section" id="specialties" style="background: #fff0e6;">
+        <div class="section-header">
+            <h2>Why Choose Us</h2>
+            <p>Experience the difference</p>
+        </div>
+
+        <div class="specialties-grid">
+            <div class="spec-card">
+                <div class="spec-icon">🌿</div>
+                <h3>Fresh Ingredients</h3>
+                <p>Daily sourced from local farms</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-icon">🍛</div>
+                <h3>Authentic Taste</h3>
+                <p>Traditional recipes passed down generations</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-icon">⚡</div>
+                <h3>Fast Service</h3>
+                <p>Ready in under 30 minutes</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-icon">🧼</div>
+                <h3>Hygienic Kitchen</h3>
+                <p>FSSAI certified &amp; spotless</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+        <div class="section-header">
+            <h2>Visit Us</h2>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3 style="color: var(--maroon); margin-bottom: 1.5rem;">Lajawab Beswaad Restaurant</h3>
+                <p><strong>📍 Address:</strong><br>
+                Civil Lines Road, Saugor, Madhya Pradesh 470001</p>
+                
+                <p style="margin: 1.5rem 0;" class="contact-phone">
+                    <strong>📞 Phone:</strong><br>
+                    <a href="tel:+919770065024">+91 97700 65024</a>
+                </p>
+                
+                <p><strong>✉️ Email:</strong><br>
+                hello@lajawabbeswaad.in</p>
+                
+                <p style="margin-top: 1.5rem;"><strong>🕒 Hours:</strong><br>
+                Mon–Sun: 11:00 AM – 11:00 PM</p>
+            </div>
+
+            <div>
+                <div class="map-placeholder"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Lajawab Beswaad Restaurant • Made with ❤️ for the best food in Saugor</p>
+    </footer>
+
+    <!-- CART PANEL -->
+    <div class="cart-panel" id="cart-panel">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <span onclick="toggleCart()" style="cursor:pointer; font-size:1.8rem;">✕</span>
+        </div>
+        
+        <div class="cart-body" id="cart-items">
+            <!-- Populated by JS -->
+        </div>
+
+        <div class="cart-total">
+            <div class="total-line">
+                <span>Subtotal</span>
+                <span id="subtotal">₹0</span>
+            </div>
+            <div class="total-line" style="margin-top: 10px; font-size:1.1rem;">
+                <span>Delivery / Service</span>
+                <span>₹30</span>
+            </div>
+            <div class="total-line grand-total" style="margin-top: 15px; border-top: 2px dashed #ccc; padding-top: 15px;">
+                <span>Total</span>
+                <span id="grand-total">₹0</span>
+            </div>
+            
+            <button onclick="showCheckoutModal()" class="btn" style="margin-top: 20px; width: 100%; background: var(--deep-maroon);">
+                Proceed to Order
+            </button>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Place Your Order</h2>
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Your name" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="+91" required>
+
+                <label for="address">Delivery Address</label>
+                <textarea id="address" rows="3" placeholder="House no, street, landmark"></textarea>
+
+                <label>Order Type</label>
+                <div class="order-type">
+                    <div onclick="selectOrderType(this)" class="radio-label active" data-type="takeaway">Takeaway</div>
+                    <div onclick="selectOrderType(this)" class="radio-label" data-type="dinein">Dine-in</div>
+                </div>
+
+                <div id="table-field" style="display:none;">
+                    <label for="table">Table Number</label>
+                    <input type="text" id="table" placeholder="e.g. 7">
+                </div>
+
+                <button onclick="placeOrder()" class="btn" style="width:100%; margin-top: 1rem;">
+                    Confirm &amp; Send on WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+        <span id="toast-text"></span>
+    </div>
+
+    <script>
+        // ===================== MENU DATA =====================
+        const menuItems = [
+            {
+                id: 1,
+                name: "Paneer Chilli",
+                halfPrice: 140,
+                fullPrice: 240,
+                desc: "Tender paneer cubes stir-fried with fresh chillies, onions & bell peppers in tangy sauce",
+                img: "https://i.ibb.co/YFTSJbG6/top-view-chicken-soup-with-ingredients.jpg",
+                popular: true
+            },
+            {
+                id: 2,
+                name: "Manchurian",
+                halfPrice: 120,
+                fullPrice: 220,
+                desc: "Crispy vegetable balls tossed in sweet & sour Indo-Chinese gravy",
+                img: "https://i.ibb.co/Kp7dT0QL/meatballs-sweet-sour-tomato-sauce.jpg",
+                popular: false
+            },
+            {
+                id: 3,
+                name: "Hakka Noodles",
+                halfPrice: 110,
+                fullPrice: 200,
+                desc: "Soft hakka noodles stir-fried with colorful vegetables & aromatic spices",
+                img: "https://i.ibb.co/TxmGQq9L/top-view-delicious-noodles-concept.jpg",
+                popular: true
+            },
+            {
+                id: 4,
+                name: "Momos",
+                halfPrice: 90,
+                fullPrice: 160,
+                desc: "Steamed dumplings stuffed with spiced vegetables, served with fiery chutney",
+                img: "https://i.ibb.co/zhds2r0z/top-view-traditional-asian-dumplings-with-meat-vegetables-served-with-soy-sauce-plate-rustic-table.jpg",
+                popular: false
+            },
+            {
+                id: 5,
+                name: "Margherita Pizza",
+                halfPrice: 150,
+                fullPrice: 280,
+                desc: "Classic thin-crust pizza loaded with fresh mozzarella & basil",
+                img: "https://i.ibb.co/jk9mPWQg/pizza-pizza-filled-with-tomatoes-salami-olives.jpg",
+                popular: true
+            }
+        ]
+
+        let cart = []
+
+        // Render Menu
+        function renderMenu() {
+            const container = document.getElementById('menu-grid')
+            container.innerHTML = ''
+
+            menuItems.forEach(item => {
+                const cardHTML = `
+                    <div class="menu-card" data-id="${item.id}">
+                        <img src="${item.img}" alt="${item.name}">
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3>${item.name}</h3>
+                                ${item.popular ? `<span class="badge">Popular</span>` : ''}
+                            </div>
+                            <p class="description">${item.desc}</p>
+                            
+                            <div class="size-toggle" id="size-toggle-${item.id}">
+                                <button onclick="toggleSize(${item.id}, 'half', this)" class="size-btn active" data-size="half">Half</button>
+                                <button onclick="toggleSize(${item.id}, 'full', this)" class="size-btn" data-size="full">Full</button>
+                            </div>
+
+                            <div class="price" id="price-${item.id}">₹${item.halfPrice}</div>
+
+                            <div class="qty-control">
+                                <div onclick="changeQty(this, -1)" class="qty-btn">−</div>
+                                <div class="qty-display" id="qty-${item.id}">1</div>
+                                <div onclick="changeQty(this, 1)" class="qty-btn">+</div>
+                            </div>
+
+                            <button onclick="addToCartFromCard(${item.id})" class="add-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                `
+                container.innerHTML += cardHTML
+            })
+        }
+
+        // Toggle size
+        window.toggleSize = function(id, size, btn) {
+            const toggleContainer = document.getElementById(`size-toggle-${id}`)
+            const buttons = toggleContainer.querySelectorAll('.size-btn')
+            buttons.forEach(b => b.classList.remove('active'))
+            btn.classList.add('active')
+
+            const item = menuItems.find(i => i.id === id)
+            const priceEl = document.getElementById(`price-${id}`)
+            
+            if (size === 'half') {
+                priceEl.textContent = `₹${item.halfPrice}`
+            } else {
+                priceEl.textContent = `₹${item.fullPrice}`
+            }
+        }
+
+        // Quantity
+        window.changeQty = function(el, change) {
+            const qtyEl = el.parentElement.querySelector('.qty-display')
+            let qty = parseInt(qtyEl.textContent)
+            qty = Math.max(1, Math.min(10, qty + change))
+            qtyEl.textContent = qty
+        }
+
+        // Add from card
+        window.addToCartFromCard = function(id) {
+            const card = document.querySelector(`.menu-card[data-id="${id}"]`)
+            const qty = parseInt(card.querySelector('.qty-display').textContent)
+            const activeSizeBtn = card.querySelector('.size-btn.active')
+            const size = activeSizeBtn.getAttribute('data-size')
+            
+            const item = menuItems.find(i => i.id === id)
+            const price = size === 'half' ? item.halfPrice : item.fullPrice
+
+            addToCart(item, size, qty, price)
+            showToast(`✅ ${item.name} (${size}) added!`)
+        }
+
+        function addToCart(item, size, qty, price) {
+            const existing = cart.findIndex(c => c.id === item.id && c.size === size)
+            
+            if (existing > -1) {
+                cart[existing].qty += qty
+            } else {
+                cart.push({
+                    id: item.id,
+                    name: item.name,
+                    size: size,
+                    price: price,
+                    qty: qty,
+                    img: item.img
+                })
+            }
+            
+            updateCartCount()
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0)
+            document.getElementById('cart-count').textContent = count
+        }
+
+        // Render Cart
+        function renderCart() {
+            const container = document.getElementById('cart-items')
+            container.innerHTML = ''
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p style="text-align:center; padding:40px; color:#888;">Your cart is empty</p>`
+                document.getElementById('subtotal').textContent = '₹0'
+                document.getElementById('grand-total').textContent = '₹30'
+                return
+            }
+
+            let subtotal = 0
+
+            cart.forEach((item, index) => {
+                const totalItem = item.price * item.qty
+                subtotal += totalItem
+
+                const html = `
+                    <div class="cart-item">
+                        <img src="${item.img}" alt="${item.name}">
+                        <div style="flex:1;">
+                            <div style="display:flex; justify-content:space-between;">
+                                <h4>${item.name}</h4>
+                                <span onclick="removeFromCart(${index})" style="cursor:pointer; color:#c00;">✕</span>
+                            </div>
+                            <p style="font-size:0.9rem; color:#888;">${item.size.toUpperCase()} • ₹${item.price}</p>
+                            <div style="display:flex; align-items:center; gap:15px; margin-top:8px;">
+                                <div onclick="changeCartQty(${index}, -1)" style="width:28px;height:28px;border-radius:50%;border:2px solid #8B0000;display:flex;align-items:center;justify-content:center;cursor:pointer;">−</div>
+                                <span style="font-weight:600;">${item.qty}</span>
+                                <div onclick="changeCartQty(${index}, 1)" style="width:28px;height:28px;border-radius:50%;border:2px solid #8B0000;display:flex;align-items:center;justify-content:center;cursor:pointer;">+</div>
+                            </div>
+                        </div>
+                        <div style="text-align:right; font-weight:600;">₹${totalItem}</div>
+                    </div>
+                `
+                container.innerHTML += html
+            })
+
+            document.getElementById('subtotal').textContent = `₹${subtotal}`
+            const grand = subtotal + 30
+            document.getElementById('grand-total').textContent = `₹${grand}`
+        }
+
+        window.changeCartQty = function(index, change) {
+            cart[index].qty += change
+            if (cart[index].qty < 1) cart[index].qty = 1
+            renderCart()
+            updateCartCount()
+        }
+
+        window.removeFromCart = function(index) {
+            cart.splice(index, 1)
+            renderCart()
+            updateCartCount()
+        }
+
+        // Toggle Cart
+        window.toggleCart = function() {
+            const panel = document.getElementById('cart-panel')
+            panel.classList.toggle('open')
+            if (panel.classList.contains('open')) renderCart()
+        }
+
+        // Show Checkout Modal
+        window.showCheckoutModal = function() {
+            if (cart.length === 0) {
+                showToast("Cart is empty!")
+                return
+            }
+            toggleCart()
+            document.getElementById('checkout-modal').style.display = 'flex'
+        }
+
+        // Order type
+        window.selectOrderType = function(el) {
+            document.querySelectorAll('.radio-label').forEach(l => l.classList.remove('active'))
+            el.classList.add('active')
+            
+            const isDine = el.getAttribute('data-type') === 'dinein'
+            document.getElementById('table-field').style.display = isDine ? 'block' : 'none'
+        }
+
+        // Place Order
+        window.placeOrder = function() {
+            const name = document.getElementById('name').value.trim()
+            const phone = document.getElementById('phone').value.trim()
+            const address = document.getElementById('address').value.trim()
+            
+            if (!name || !phone || !address) {
+                showToast("Please fill all fields")
+                return
+            }
+
+            const orderType = document.querySelector('.radio-label.active').getAttribute('data-type')
+            const table = document.getElementById('table').value || '—'
+
+            // Generate order ID
+            const orderId = 'ORD-' + Math.floor(10000 + Math.random() * 90000)
+            const now = new Date().toLocaleString('en-IN')
+
+            // Build summary
+            let summary = `🛍️ *New Order from Lajawab Beswaad*\n\n`
+            summary += `📌 Order ID: ${orderId}\n`
+            summary += `🕒 ${now}\n\n`
+            summary += `👤 Name: ${name}\n`
+            summary += `📞 Phone: ${phone}\n`
+            summary += `📍 Address: ${address}\n`
+            summary += `📦 Type: ${orderType.toUpperCase()}${orderType === 'dinein' ? ` (Table ${table})` : ''}\n\n`
+            summary += `🍽️ *Items:*\n`
+
+            let total = 30
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty
+                summary += `• ${item.name} (${item.size}) × ${item.qty} = ₹${itemTotal}\n`
+                total += itemTotal
+            })
+
+            summary += `\n💰 *Total: ₹${total}* (incl. ₹30 service)\n\n`
+            summary += `Thank you! 🙏 We will prepare your order shortly.`
+
+            // WhatsApp
+            const whatsappNumber = '919770065024' // Updated number
+            const encoded = encodeURIComponent(summary)
+            const waLink = `https://wa.me/${whatsappNumber}?text=${encoded}`
+
+            // Clear everything
+            setTimeout(() => {
+                window.open(waLink, '_blank')
+                cart = []
+                updateCartCount()
+                document.getElementById('checkout-modal').style.display = 'none'
+                showToast("✅ Order sent to WhatsApp!")
+            }, 800)
+        }
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast')
+            document.getElementById('toast-text').innerHTML = message
+            toast.style.display = 'flex'
+            
+            setTimeout(() => {
+                toast.style.display = 'none'
+            }, 3000)
+        }
+
+        // Close modal on outside click
+        document.getElementById('checkout-modal').addEventListener('click', function(e) {
+            if (e.target.id === 'checkout-modal') {
+                this.style.display = 'none'
+            }
+        })
+
+        // Keyboard ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                const modal = document.getElementById('checkout-modal')
+                if (modal.style.display === 'flex') modal.style.display = 'none'
+                const cartPanel = document.getElementById('cart-panel')
+                if (cartPanel.classList.contains('open')) cartPanel.classList.remove('open')
+            }
+        })
+
+        // Initialize
+        function init() {
+            renderMenu()
+            updateCartCount()
+            
+            // Smooth scroll for nav
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#menu') {
+                        e.preventDefault()
+                        document.getElementById('menu').scrollIntoView({ behavior: 'smooth' })
+                    }
+                })
+            })
+        }
+
+        window.onload = init
+    </script>
+</body>
+</html>
